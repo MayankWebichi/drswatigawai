@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book OPD Appointment | Dr. Swati Gawai Chembur Mumbai</title>
+    <meta name="description" content="Book 15-minute OPD consultation slots, check OPD status, cancel appointments securely, and print official hospital OPD slips for Dr. Swati Gawai at Ameeta Nursing Home, Chembur.">
+    <meta name="keywords" content="Book Gynecologist OPD Chembur, Dr Swati Gawai OPD Appointment, Ameeta Nursing Home Consultation, OPD Ticket Chembur">
+    <link rel="canonical" href="https://drswatigawai.com/booking">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://drswatigawai.com/booking">
+    <meta property="og:title" content="Book OPD Appointment | Dr. Swati Gawai Chembur Mumbai">
+    <meta property="og:description" content="Select a 15-minute OPD slot (Rolling 15-Day Window), generate auto OPD Ticket, and print official hospital slip.">
+    <meta property="og:image" content="https://drswatigawai.com/images/profie%201.jpg">
+    <meta property="og:image:secure_url" content="https://drswatigawai.com/images/profie%201.jpg">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gynaecdrswati99">
+    <meta name="twitter:title" content="Book OPD Appointment | Dr. Swati Gawai Chembur Mumbai">
+    <meta name="twitter:description" content="Select a 15-minute OPD slot (Mon-Sat, Closed Wed & Sun), generate auto OPD Ticket, and print official hospital slip.">
+    <meta name="twitter:image" content="https://drswatigawai.com/images/profie%201.jpg">
+    
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Caveat:wght@700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    
+    <!-- Master Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Custom Portal Utilities */
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-weight: 700; font-size: 0.88rem; color: var(--ink-dark); margin-bottom: 6px; }
+        .form-control { 
+            width: 100%; 
+            padding: 12px 14px; 
+            border-radius: var(--radius-sm); 
+            border: 1.5px solid var(--light-border); 
+            font-family: var(--font-body); 
+            font-size: 0.92rem; 
+            outline: none; 
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            background: var(--white);
+        }
+        .form-control:focus { 
+            border-color: var(--orange-primary); 
+            box-shadow: 0 0 0 3px rgba(232, 86, 10, 0.15);
+        }
+        
+        .opd-nav-tabs { 
+            display: flex; 
+            gap: 10px; 
+            margin-bottom: 24px; 
+            border-bottom: 2px solid var(--yellow-soft); 
+            padding-bottom: 10px; 
+            flex-wrap: wrap; 
+        }
+        .opd-tab-btn { 
+            background: transparent; 
+            border: none; 
+            font-family: var(--font-heading); 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            color: var(--muted-gray); 
+            padding: 8px 18px; 
+            border-radius: var(--radius-sm); 
+            cursor: pointer; 
+            transition: var(--transition); 
+        }
+        .opd-tab-btn.active { 
+            background: var(--yellow-soft); 
+            color: var(--orange-primary); 
+            box-shadow: 0 4px 12px rgba(232, 86, 10, 0.1);
+        }
+
+        /* Rolling Date Chips Selector Grid */
+        .date-chips-wrapper {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 6px 2px 14px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .date-chip {
+            flex: 0 0 auto;
+            width: 90px;
+            padding: 10px 8px;
+            border-radius: 12px;
+            border: 1.5px solid var(--light-border);
+            background: var(--white);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+        .date-chip .day-name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--muted-gray); }
+        .date-chip .day-num { font-size: 1.25rem; font-weight: 800; color: var(--ink-dark); line-height: 1.1; margin: 2px 0; }
+        .date-chip .month-name { font-size: 0.7rem; font-weight: 600; color: var(--ink-soft); }
+        .date-chip:hover:not(.closed) { border-color: var(--orange-primary); transform: translateY(-2px); }
+        .date-chip.selected { 
+            background: var(--orange-primary); 
+            border-color: var(--orange-primary); 
+            color: var(--white) !important;
+            box-shadow: 0 6px 16px rgba(232, 86, 10, 0.3);
+        }
+        .date-chip.selected .day-name, 
+        .date-chip.selected .day-num, 
+        .date-chip.selected .month-name { color: var(--white) !important; }
+        .date-chip.closed { 
+            background: #FEE2E2; 
+            border-color: #FCA5A5; 
+            cursor: not-allowed; 
+            opacity: 0.7;
+        }
+        .date-chip.closed .day-name,
+        .date-chip.closed .day-num,
+        .date-chip.closed .month-name { color: #DC2626 !important; }
+
+        /* 15-Minute Time Slot Pill Grid */
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .slot-pill {
+            padding: 10px 6px;
+            border-radius: 10px;
+            border: 1.5px solid var(--light-border);
+            background: var(--white);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--ink-dark);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+        .slot-pill:hover:not(.booked) {
+            border-color: var(--orange-primary);
+            background: var(--yellow-soft);
+            color: var(--orange-primary);
+        }
+        .slot-pill.selected {
+            background: var(--orange-primary) !important;
+            border-color: var(--orange-primary) !important;
+            color: var(--white) !important;
+            box-shadow: 0 4px 14px rgba(232, 86, 10, 0.35);
+        }
+        .slot-pill.booked {
+            background: #F3F4F6 !important;
+            border-color: #E5E7EB !important;
+            color: #9CA3AF !important;
+            cursor: not-allowed;
+            text-decoration: line-through;
+            opacity: 0.65;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Full Page Digital Splash Loader -->
+    <div id="site-loader">
+        <img src="images/logo.jpg" alt="Dr. Swati Gawai Logo" class="loader-logo" onerror="this.src='https://via.placeholder.com/80';">
+        <div class="loader-title">Dr. Swati Gawai</div>
+        <div class="loader-subtitle">Gynecologist, Obstetrician & Robotic Surgeon</div>
+        <div class="loader-progress-track">
+            <div class="loader-progress-bar" id="loaderProgressBar"></div>
+        </div>
+    </div>
+
+    <!-- 2. Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-follower"></div>
+
+    <!-- 3. Header Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-wrapper">
+                <img src="images/logo.jpg" alt="Logo" class="brand-logo-img" onerror="this.src='https://via.placeholder.com/46';">
+                <div>
+                    <div class="brand-name">Dr. Swati Gawai</div>
+                    <div class="brand-tag">Gynecologist, Obstetrician & Robotic Surgeon</div>
+                </div>
+            </a>
+            
+            <ul class="nav-links-desktop">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">Profile</a></li>
+                <li><a href="specialties.html">Specialties</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="certificates.html">Certificates</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="active btn btn-secondary btn-book-opd-flash" style="padding:6px 16px; font-size:0.85rem;"><i class="fa-solid fa-calendar-check"></i> Book OPD</a></li>
+            </ul>
+
+            <button class="mobile-burger-btn" id="mobileBurgerBtn" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Offcanvas Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <aside class="mobile-drawer" id="mobileDrawer">
+        <div>
+            <div class="brand-wrapper" style="margin-bottom:24px;">
+                <img src="images/logo.jpg" alt="Logo" class="brand-logo-img">
+                <div>
+                    <div class="brand-name">Dr. Swati Gawai</div>
+                    <div class="brand-tag">Gynecologist, Obstetrician & Robotic Surgeon</div>
+                </div>
+            </div>
+            <ul class="drawer-nav-list">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="index.html#about"><i class="fa-solid fa-user-doctor"></i> About Dr. Gawai</a></li>
+                <li><a href="index.html#services"><i class="fa-solid fa-stethoscope"></i> Specialties</a></li>
+                <li><a href="blog.html"><i class="fa-solid fa-newspaper"></i> Health Blog</a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-check"></i> Book OPD</a></li>
+                <li><a href="index.html#contact"><i class="fa-solid fa-location-dot"></i> Contact & Map</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Page Header Bar -->
+    <section style="background:linear-gradient(180deg, var(--cream-hero) 0%, rgba(255,253,245,0.7) 100%); padding:24px 0 16px; border-bottom:1px solid var(--yellow-soft);">
+        <div class="container text-center">
+            <span class="section-tag" style="font-size:0.78rem;">Single 1-Page OPD Queue System</span>
+            <h1 class="section-heading" style="font-size:1.8rem; margin-bottom:4px;">OPD Appointment Portal</h1>
+            <p style="max-width:580px; margin:0 auto; color:var(--ink-soft); font-size:0.88rem;">
+                Select a 15-minute slot (Rolling 15-Day Window), generate your auto OPD Ticket (starts 11001), and print hospital slip.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <main style="padding:24px 0 50px; background:var(--white);">
+        <div class="container">
+            
+            <!-- App Showcase Banner -->
+            <div class="app-showcase-banner" style="margin-bottom:24px; padding:20px 24px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+                    <div style="max-width:560px;">
+                        <div class="app-showcase-tag">
+                            📱 Prefer Mobile App Booking?
+                        </div>
+                        <h4 style="font-size:1.2rem; font-weight:800; margin-bottom:4px;">Dr. Swati Gawai &bull; Docterz Connect App</h4>
+                        <p style="font-size:0.86rem; margin:0;">
+                            Download the official Android app on Google Play for instant OPD ticket updates, digital prescriptions, and direct consultation alerts.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://play.google.com/store/apps/details?id=com.docterz.connect.gynaecologistdrswatigawai&hl=en_IN" target="_blank" class="btn-playstore glow-pulse" style="padding:8px 16px;">
+                            <i class="fa-brands fa-google-play play-icon" style="font-size:1.4rem;"></i>
+                            <div class="play-text">
+                                <span class="play-sub" style="font-size:0.62rem;">Get It On</span>
+                                <span class="play-title" style="font-size:0.85rem;">Google Play</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Consultation Fee & Appointment Numbers Showcase -->
+            <div style="display:grid; grid-template-columns:1fr 2fr; gap:16px; margin-bottom:24px;">
+                <div style="background:#FFF8E7; border:1.5px solid #FFD966; border-left:5px solid var(--orange-primary); border-radius:var(--radius-lg); padding:20px; display:flex; flex-direction:column; justify-content:center;">
+                    <div style="font-weight:800; color:var(--ink-dark); font-size:0.95rem; margin-bottom:6px;"><i class="fa-solid fa-indian-rupee-sign" style="color:var(--orange-primary);"></i> Consultation Fee</div>
+                    <div style="font-size:1.6rem; font-weight:900; color:var(--orange-primary); font-family:var(--font-heading);">&#8377;1,200/-</div>
+                    <div style="font-size:0.8rem; color:var(--ink-soft); margin-top:2px;">Per OPD Consultation Session</div>
+                </div>
+
+                <div class="phone-numbers-showcase" style="margin-bottom:0;">
+                    <div class="phone-numbers-header">
+                        <i class="fa-solid fa-square-phone"></i>
+                        <span>Direct OPD Booking Numbers</span>
+                    </div>
+                    <div class="phone-grid-list">
+                        <a href="tel:+919321498329" class="phone-pill-link primary-num">
+                            <div class="phone-pill-info">
+                                <div class="phone-pill-icon"><i class="fa-solid fa-star"></i></div>
+                                <span class="phone-pill-num">+91 93214 98329</span>
+                            </div>
+                        </a>
+                        <a href="tel:+919819751455" class="phone-pill-link">
+                            <div class="phone-pill-info">
+                                <div class="phone-pill-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                                <span class="phone-pill-num">+91 98197 51455</span>
+                            </div>
+                            <span style="font-size:0.68rem; font-weight:700; color:var(--ink-soft);">Mobile</span>
+                        </a>
+                        <a href="tel:+917506444461" class="phone-pill-link">
+                            <div class="phone-pill-info">
+                                <div class="phone-pill-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                                <span class="phone-pill-num">+91 75064 44461</span>
+                            </div>
+                            <span style="font-size:0.68rem; font-weight:700; color:var(--ink-soft);">Mobile</span>
+                        </a>
+                        <a href="tel:02225279600" class="phone-pill-link">
+                            <div class="phone-pill-info">
+                                <div class="phone-pill-icon"><i class="fa-solid fa-phone"></i></div>
+                                <span class="phone-pill-num">022-25279600</span>
+                            </div>
+                            <span style="font-size:0.68rem; font-weight:700; color:var(--ink-soft);">Landline</span>
+                        </a>
+                        <a href="tel:02225279700" class="phone-pill-link">
+                            <div class="phone-pill-info">
+                                <div class="phone-pill-icon"><i class="fa-solid fa-phone"></i></div>
+                                <span class="phone-pill-num">022-25279700</span>
+                            </div>
+                            <span style="font-size:0.68rem; font-weight:700; color:var(--ink-soft);">Landline</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPD Reservation Guide Banner -->
+            <div class="reservation-guide-box">
+                <div class="reservation-guide-title">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>OPD Consultation Reservation Info</span>
+                </div>
+                <p class="reservation-guide-text">
+                    You can reserve your 15-minute consultation slot directly through the official website by selecting a date and time slot below to generate an official OPD ticket. Alternatively, you can fill out the online registration form at the SurveyHeart Consultation portal.
+                </p>
+                <div class="reservation-guide-actions">
+                    <a href="https://form.svhrt.com/628a650be0bda849487ce753" target="_blank" class="guide-btn-survey">
+                        <i class="fa-solid fa-file-pen"></i> Open SurveyHeart Consultation Form <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i>
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- OPD Navigation Action Tabs -->
+            <div class="opd-nav-tabs" style="justify-content:space-between; align-items:center;">
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="opd-tab-btn active" id="tabBookBtn" onclick="switchOpdTab('book')"><i class="fa-solid fa-calendar-plus"></i> Book 15-Min Slot</button>
+                    <button class="opd-tab-btn" id="tabStatusBtn" onclick="switchOpdTab('status')"><i class="fa-solid fa-magnifying-glass"></i> Check OPD Status</button>
+                    <button class="opd-tab-btn" id="tabCancelBtn" onclick="switchOpdTab('cancel')"><i class="fa-solid fa-rectangle-xmark"></i> Cancel Appointment</button>
+                </div>
+                <button onclick="clearAllLocalBookings()" title="Clear all stored booking data from this device" style="background:none; border:1px dashed #94A3B8; color:#94A3B8; font-size:0.75rem; padding:4px 10px; border-radius:6px; cursor:pointer; font-family:var(--font-body); font-weight:600; white-space:nowrap;" onmouseover="this.style.color='#DC2626';this.style.borderColor='#DC2626'" onmouseout="this.style.color='#94A3B8';this.style.borderColor='#94A3B8'">
+                    <i class="fa-solid fa-rotate-left"></i> Reset Slots
+                </button>
+            </div>
+
+            <!-- TAB 1: OPD BOOKING ENGINE -->
+            <div id="section-book" style="display:block;">
+                <div class="booking-form-card" style="max-width:850px; margin:0 auto; width:100%; background:var(--white); border-radius:var(--radius-md); border:1.5px solid var(--light-border); padding:28px 24px; box-shadow:var(--shadow-sm);">
+                    <h3 style="font-size:1.3rem; margin-bottom:20px; color:var(--orange-primary); font-family:var(--font-heading); display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-user-doctor"></i> Patient OPD Appointment Registration
+                    </h3>
+                    
+                    <form id="opdBookingForm" onsubmit="handleOPDBookingSubmit(event)">
+                        <!-- Patient Basic Info -->
+                        <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:16px;">
+                            <div class="form-group">
+                                <label class="form-label">Patient Full Name *</label>
+                                <input type="text" id="patientName" class="form-control" placeholder="e.g. Radhika Sharma" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Age (Yrs) *</label>
+                                <input type="number" id="patientAge" class="form-control" placeholder="e.g. 28" min="1" max="110" required>
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                            <div class="form-group">
+                                <label class="form-label">10-Digit Mobile Number *</label>
+                                <input type="tel" id="patientPhone" class="form-control" placeholder="10-digit mobile" maxlength="10" inputmode="numeric" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email (Optional)</label>
+                                <input type="email" id="patientEmail" class="form-control" placeholder="name@domain.com">
+                            </div>
+                        </div>
+
+                        <!-- Category Selector -->
+                        <div class="form-group">
+                            <label class="form-label">Consultation Category / Problem *</label>
+                            <select id="bookingService" class="form-control" required>
+                                <option value="✓ Vaginal Infection Treatment">✓ Vaginal Infection Treatment</option>
+                                <option value="✓ Obstetrics & High-Risk Pregnancy">✓ Obstetrics & High-Risk Pregnancy</option>
+                                <option value="✓ General Gynecology & PCOS">✓ General Gynecology & PCOS</option>
+                                <option value="✓ Robotic & Laparoscopic Surgery Consult">✓ Robotic & Laparoscopic Surgery Consult</option>
+                                <option value="✓ Infertility & Hystero-Laparoscopy">✓ Infertility & Hystero-Laparoscopy</option>
+                                <option value="✓ Pediatric & Adolescent Gynecology">✓ Pediatric & Adolescent Gynecology</option>
+                                <option value="✓ Preventive Oncology (VIA/VILI)">✓ Preventive Oncology (VIA/VILI)</option>
+                                <option value="✓ Minilap Sterilization & Family Planning">✓ Minilap Sterilization & Family Planning</option>
+                                <option value="✓ Any other problem not mentioned above">✓ Any other problem not mentioned above</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Symptoms / Additional Details (Optional)</label>
+                            <textarea id="patientNotes" class="form-control" rows="2" placeholder="Briefly describe your symptoms or concerns..."></textarea>
+                        </div>
+
+                        <!-- 15-DAY ROLLING DATE SELECTION -->
+                        <div class="form-group" style="margin-top:22px; background:var(--yellow-bg); padding:18px; border-radius:var(--radius-md); border:1.5px solid var(--light-border);">
+                            <label class="form-label" style="font-weight:800; color:var(--ink-dark); font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                                <span><i class="fa-solid fa-calendar-days" style="color:var(--orange-primary);"></i> Select Date (Rolling 15-Day Window) *</span>
+                                <span style="font-size:0.75rem; font-weight:600; color:var(--muted-gray);">Wed & Sun Closed</span>
+                            </label>
+                            
+                            <div class="date-chips-wrapper" id="dateChipsWrapper">
+                                <!-- Dynamic Date Chips generated by JS -->
+                            </div>
+                            <input type="hidden" id="bookingDate" required>
+                        </div>
+
+                        <!-- 15-MINUTE TIME SLOT SELECTION -->
+                        <div class="form-group" style="margin-top:16px; margin-bottom:20px; background:var(--yellow-soft); padding:18px; border-radius:var(--radius-md); border:1.5px solid var(--light-border);">
+                            <label class="form-label" style="font-weight:800; color:var(--ink-dark); font-size:0.95rem; margin-bottom:8px; display:block;">
+                                <i class="fa-solid fa-clock" style="color:var(--orange-primary);"></i> Select Open 15-Minute Slot (Min 2 Hours Advance for Today) *
+                            </label>
+                            
+                            <div class="slots-grid" id="slotsGridContainer">
+                                <!-- Dynamic 15-minute slot pills generated by JS -->
+                            </div>
+                            <input type="hidden" id="selectedTimeSlot" required>
+                            
+                            <div style="font-size:0.78rem; color:var(--muted-gray); margin-top:10px;">
+                                💳 Consultation fee payable at Ameeta Nursing Home desk upon consultation.
+                            </div>
+                        </div>
+
+                        <!-- NMC Compliance Consent -->
+                        <div class="form-group" style="margin-top:12px; margin-bottom:22px;">
+                            <label style="display:flex; align-items:flex-start; gap:10px; font-size:0.83rem; color:var(--ink-dark); font-weight:600; cursor:pointer; line-height:1.45; background:var(--white); padding:12px; border-radius:var(--radius-sm); border:1px solid var(--light-border);">
+                                <input type="checkbox" id="nmcConsentCheckbox" required style="margin-top:3px; accent-color:var(--orange-primary); width:16px; height:16px; flex-shrink:0;">
+                                <span>⚖️ <strong>NMC Compliance Consent:</strong> I consent to clinic communication via WhatsApp and understand that emergency medical conditions require an immediate in-person hospital visit per NMC Telemedicine Guidelines.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" id="bookingSubmitBtn" class="btn btn-primary glow-pulse" style="width:100%; padding:14px; font-size:1.05rem; font-weight:800;">
+                            <i class="fa-solid fa-circle-check"></i> Book OPD &amp; Generate Ticket
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 2: CHECK OPD STATUS -->
+            <div id="section-status" style="display:none;">
+                <div style="background:var(--white); border:1.5px solid var(--light-border); border-radius:var(--radius-md); padding:24px; box-shadow:var(--shadow-sm); max-width:650px; margin:0 auto;">
+                    <h3 style="font-size:1.2rem; margin-bottom:14px; color:var(--ink-dark);"><i class="fa-solid fa-magnifying-glass"></i> Search OPD Appointment Status</h3>
+                    
+                    <div style="display:flex; gap:10px; margin-bottom:20px;">
+                        <input type="text" id="statusSearchQuery" class="form-control" placeholder="Enter OPD Number (e.g. 11001) or Patient Name/Phone...">
+                        <button class="btn btn-primary" onclick="searchOpdStatus()" style="flex-shrink:0; padding:8px 18px;"><i class="fa-solid fa-search"></i> Search</button>
+                    </div>
+
+                    <div id="statusSearchResult"></div>
+                </div>
+            </div>
+
+            <!-- TAB 3: CANCEL APPOINTMENT -->
+            <div id="section-cancel" style="display:none;">
+                <div style="background:var(--white); border:1.5px solid var(--light-border); border-radius:var(--radius-md); padding:24px; box-shadow:var(--shadow-sm); max-width:480px; margin:0 auto;">
+                    <h3 style="font-size:1.2rem; margin-bottom:12px; color:#DC2626;"><i class="fa-solid fa-rectangle-xmark"></i> Secure Appointment Cancellation</h3>
+                    <p style="font-size:0.85rem; color:var(--muted-gray); margin-bottom:16px;">Verify OPD Number and last 4 digits of registered mobile number.</p>
+
+                    <div class="form-group">
+                        <label class="form-label">OPD Number *</label>
+                        <input type="number" id="cancelOpdNo" class="form-control" placeholder="e.g. 11001" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Last 4 Digits of Phone Number *</label>
+                        <input type="text" id="cancelPhoneLast4" class="form-control" placeholder="e.g. 8329" maxlength="4" required>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="handleSecureCancellation()" style="width:100%; background:#DC2626; border-color:#DC2626; padding:12px;"><i class="fa-solid fa-ban"></i> Verify & Cancel Appointment</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background:var(--dark-slate); color:var(--white); padding:36px 0 24px;">
+        <div class="container text-center">
+            <img src="images/logo.jpg" alt="Dr. Swati Gawai Clinic Logo" style="width:64px; height:64px; border-radius:50%; border:2px solid var(--orange-primary); margin-bottom:12px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/64';">
+            <h3 style="font-family:var(--font-heading); color:var(--white); margin-bottom:2px;">Dr. Swati Gawai</h3>
+            <p style="font-size:0.85rem; color:var(--orange-primary); font-weight:800; margin-bottom:4px;">MBBS, MS (OBGY), DGO, FMAS, FICOG</p>
+            <p style="font-size:0.85rem; color:var(--amber-gold); margin-bottom:14px;">Obstetrician, Gynecologist & Robotic Surgeon | MMC Reg: 4244 / 2015/08/4244</p>
+            <div style="font-size:0.75rem; color:rgba(255,255,255,0.4);">
+                © 2026 Dr. Swati Gawai. All Rights Reserved. &nbsp;|&nbsp; 
+                <a href="index.html#termsModal" style="color:var(--amber-gold); text-decoration:underline;">Terms & Conditions</a> &nbsp;|&nbsp; 
+                <a href="admin.html" style="color:rgba(255,255,255,0.5); text-decoration:underline;">Admin Portal</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Action Bar -->
+    <div class="mobile-action-bar">
+        <a href="tel:+919321498329" class="mobile-action-btn" style="color:#0284C7;">
+            <i class="fa-solid fa-phone"></i>
+            <span>Call</span>
+        </a>
+        <a href="https://wa.me/919321498329" target="_blank" class="mobile-action-btn" style="color:#16A34A;">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>WhatsApp</span>
+        </a>
+        <a href="blog.html" class="mobile-action-btn" style="color:var(--orange-primary);">
+            <i class="fa-solid fa-newspaper"></i>
+            <span>Blog</span>
+        </a>
+        <a href="booking.html" class="mobile-action-btn" style="color:var(--amber-gold);">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Book OPD</span>
+        </a>
+    </div>
+
+    <!-- AUTHENTIC HOSPITAL PRINT SLIP TEMPLATE (@media print ONLY) -->
+    <style>
+        @media print {
+            body * { visibility: hidden !important; }
+            #hospitalOpdPrintSlip, #hospitalOpdPrintSlip * { visibility: visible !important; }
+            #hospitalOpdPrintSlip {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #FFFFFF !important;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+                color: #000000 !important;
+            }
+            @page { size: A4 portrait; margin: 5mm 8mm; }
+        }
+        #hospitalOpdPrintSlip { display: none; }
+        @media print { #hospitalOpdPrintSlip { display: block !important; } }
+
+        /* Print Header Banner Styles */
+        .print-banner-wrapper {
+            position: relative;
+            background: linear-gradient(135deg, #FCE7F3 0%, #FEF9C3 50%, #DCFCE7 75%, #E0F2FE 100%);
+            padding: 16px 20px 12px;
+            border-bottom: 2px solid #000000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+        }
+        .print-banner-wrapper::before {
+            content: ''; position: absolute; top: -20px; right: 12%; width: 140px; height: 140px; background: rgba(254, 240, 138, 0.65); border-radius: 50%; pointer-events: none;
+        }
+        .print-banner-wrapper::after {
+            content: ''; position: absolute; top: -30px; right: 1%; width: 160px; height: 160px; background: rgba(186, 230, 253, 0.55); border-radius: 50%; pointer-events: none;
+        }
+        .print-header-center { text-align: left; flex-grow: 1; z-index: 2; }
+        .print-header-right { text-align: right; font-size: 9.5pt; line-height: 1.35; font-weight: 600; color: #111827; z-index: 2; }
+
+        .print-doc-name { font-family: 'Dancing Script', 'Caveat', cursive, serif; font-size: 32pt; font-weight: 700; color: #000000; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
+        .print-doc-sub { font-size: 10.5pt; font-weight: 700; color: #111827; letter-spacing: 0.2px; margin-bottom: 3px; }
+        .print-doc-desc { font-size: 9.5pt; font-weight: 600; color: #1F2937; margin-bottom: 2px; }
+        .print-doc-hosp { font-size: 9.5pt; font-weight: 600; color: #1F2937; }
+
+        .print-body-content { position: relative; padding: 24px 30px; min-height: 750px; }
+        .print-fields-container { position: relative; z-index: 1; font-size: 11pt; line-height: 2.3; }
+        .print-field-row { display: flex; align-items: baseline; margin-bottom: 8px; }
+        .print-field-label { font-weight: 700; color: #000000; white-space: nowrap; margin-right: 6px; }
+        .print-field-line { flex-grow: 1; margin-left: 4px; min-height: 18px; }
+        .print-footer-bar { position: relative; z-index: 2; border-top: 1.5px solid #000000; padding-top: 8px; margin-top: 40px; text-align: center; font-size: 8.5pt; font-weight: 700; color: #111827; line-height: 1.4; }
+    </style>
+
+    <div id="hospitalOpdPrintSlip">
+        <div class="print-banner-wrapper">
+            <div class="print-header-center">
+                <div class="print-doc-name">Dr Swati Gawai</div>
+                <div class="print-doc-sub">MBBS MS (OBGY) DGO FMAS</div>
+                <div class="print-doc-desc">Consultant Obstetrician Gynaecologist and Endoscopic Surgeon</div>
+                <div class="print-doc-hosp">Ass. Professor LTMMC Sion Hospital, Mumbai</div>
+            </div>
+
+            <div class="print-header-right">
+                <div>Phone no. +91-9819-751-455</div>
+                <div>For Appointment : +91-9321498329</div>
+                <div>Time : 6 pm to 8 pm</div>
+                <div>Mon to Sat (Wed Closed)</div>
+                <div style="margin-top:4px; font-weight:800; color:#E65C00; font-size:10pt;">OPD No: <span id="printOpdNumber"></span></div>
+            </div>
+        </div>
+
+        <div class="print-body-content">
+            <div class="print-fields-container">
+                <div class="print-field-row">
+                    <span class="print-field-label">Name :</span> <span id="printPatientName" style="font-weight:700; color:#000;"></span>
+                    <div style="flex-grow:1;"></div>
+                    <span class="print-field-label">Date :</span> <span id="printDateTime" style="font-weight:700; color:#000;"></span>
+                </div>
+
+                <div class="print-field-row">
+                    <span class="print-field-label">Age :</span> <span id="printPatientAge" style="font-weight:700; color:#000;"></span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row">
+                    <span class="print-field-label">Address :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:12px;">
+                    <span class="print-field-label">Occupation :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row">
+                    <span class="print-field-label">Blood Group :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:12px;">
+                    <span class="print-field-label">Menarche :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:12px;">
+                    <span class="print-field-label">LMP :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row">
+                    <span class="print-field-label">LLMP :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:12px;">
+                    <span class="print-field-label" style="display:inline-flex; align-items:center; gap:4px;">
+                        MC
+                        <svg width="24" height="16" viewBox="0 0 24 16">
+                            <line x1="0" y1="8" x2="14" y2="8" stroke="#000" stroke-width="1.8"/>
+                            <line x1="14" y1="8" x2="22" y2="2" stroke="#000" stroke-width="1.8"/>
+                            <line x1="14" y1="8" x2="22" y2="14" stroke="#000" stroke-width="1.8"/>
+                        </svg>
+                        :
+                    </span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:16px;">
+                    <span class="print-field-label">Obstetric History :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:16px;">
+                    <span class="print-field-label">Contraception :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:16px;">
+                    <span class="print-field-label">Medical Disease :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:16px;">
+                    <span class="print-field-label">Surgical Disease :</span>
+                    <div class="print-field-line"></div>
+                </div>
+
+                <div class="print-field-row" style="margin-top:16px;">
+                    <span class="print-field-label">Husband Details :</span>
+                    <div class="print-field-line"></div>
+                </div>
+            </div>
+
+            <div class="print-footer-bar">
+                Ameeta Nursing Home : 1st Floor, Opp Titan Showroom And Natraj Cinema,<br>
+                Entrance Besides Ekal Stationary, Chembur East-400071. Email : gawai.swati@gmail.com
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP-LEVEL ROOT OPD TICKET POPUP MODAL -->
+    <div class="modal-overlay" id="opdTicketModal" style="display:none; position:fixed !important; top:0 !important; left:0 !important; width:100vw !important; height:100vh !important; background:rgba(0,0,0,0.75) !important; backdrop-filter:blur(8px) !important; -webkit-backdrop-filter:blur(8px) !important; z-index:99999999 !important; align-items:center; justify-content:center;">
+        <div class="modal-box" style="max-width:520px; text-align:center; padding:30px 24px; background:var(--white); border-radius:var(--radius-lg); box-shadow:0 25px 60px rgba(0,0,0,0.4); border:2px solid var(--orange-primary); width:92%; margin:auto;">
+            <div style="width:64px; height:64px; background:#DCFCE7; color:#15803D; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 16px;">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 style="font-family:var(--font-heading); font-size:1.6rem; color:var(--ink-dark); margin-bottom:4px;">OPD Ticket Generated!</h3>
+            <div style="font-size:0.88rem; color:var(--ink-soft); margin-bottom:16px;">Your appointment has been confirmed at Ameeta Nursing Home</div>
+            
+            <div class="ticket-number-tag" id="modalTicketNumberTag" style="font-size:1.8rem; padding:10px 24px; background:var(--yellow-soft); color:var(--orange-primary); font-weight:800; border-radius:12px; border:2px dashed var(--orange-primary); display:inline-block; margin-bottom:20px;">OPD-11001</div>
+
+            <div style="background:var(--yellow-bg); padding:16px; border-radius:var(--radius-md); text-align:left; border:1px solid var(--light-border); margin-bottom:24px; font-size:0.9rem; display:flex; flex-direction:column; gap:8px;">
+                <div><strong>OPD Ticket No:</strong> <span id="modalConfOpdNo" style="color:var(--orange-primary); font-weight:800;">11001</span></div>
+                <div><strong>Patient Name:</strong> <span id="modalConfName">-</span> (Age: <span id="modalConfAge">-</span> yrs)</div>
+                <div><strong>Date &amp; Time Slot:</strong> <span id="modalConfDateTime" style="font-weight:700; color:var(--ink-dark);">-</span></div>
+                <div><strong>Consultation Category:</strong> <span id="modalConfService" style="font-weight:700;">-</span></div>
+            </div>
+
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                <button class="btn btn-primary" onclick="printOfficialHospitalOpdSlip()" style="padding:10px 20px; font-size:0.9rem;"><i class="fa-solid fa-print"></i> Print Hospital Slip</button>
+                <a id="modalWhatsappConfirmBtn" href="#" target="_blank" class="btn" style="background:#25D366; color:white; padding:10px 20px; font-size:0.9rem;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                <button class="btn btn-secondary" onclick="closeOpdTicketModal()" style="padding:10px 18px; font-size:0.9rem;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Engine -->
+    <script src="script.js"></script>
+    <script>
+        let currentBookingSlipData = null;
+        const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderRolling15DayChips();
+
+            // Close modal on ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const m = document.getElementById('opdTicketModal');
+                    if (m && m.style.display === 'flex') closeOpdTicketModal();
+                }
+            });
+
+            // Close modal when clicking dark backdrop
+            const modal = document.getElementById('opdTicketModal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeOpdTicketModal();
+                });
+            }
+
+            // Purge stale localStorage appointments older than 30 days
+            try {
+                const stored = Store.get('local::appointments') || [];
+                const cutoff = new Date();
+                cutoff.setDate(cutoff.getDate() - 30);
+                const fresh = stored.filter(a => {
+                    const d = new Date(a.appointment_date + 'T00:00:00');
+                    return d >= cutoff;
+                });
+                if (fresh.length !== stored.length) {
+                    Store.set('local::appointments', fresh);
+                }
+            } catch(e) {}
+        });
+
+        // Helper: Clear all local test bookings (admin use)
+        function clearAllLocalBookings() {
+            if (!confirm('⚠️ This will clear ALL locally stored appointment data on this device.\n\nThis does NOT affect Supabase records.\n\nProceed?')) return;
+            Store.set('local::appointments', []);
+            Store.set('last_opd_number', 11000);
+            const dateVal = document.getElementById('bookingDate')?.value;
+            if (dateVal) render15MinTimeSlots(dateVal);
+            alert('✅ Local appointment data cleared. All slots are now open on this device.');
+        }
+
+        // 1. Render 15-Day Interactive Date Chips
+        function renderRolling15DayChips() {
+            const container = document.getElementById('dateChipsWrapper');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const now = new Date();
+            let firstSelectedDateStr = null;
+
+            for (let i = 0; i < 15; i++) {
+                const dateObj = new Date();
+                dateObj.setDate(now.getDate() + i);
+
+                const yr = dateObj.getFullYear();
+                const mo = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const da = String(dateObj.getDate()).padStart(2, '0');
+                const dateStr = `${yr}-${mo}-${da}`;
+
+                const dayOfWeek = dateObj.getDay();
+                const isClosed = (dayOfWeek === 0 || dayOfWeek === 3); // Sun=0, Wed=3
+
+                const chip = document.createElement('div');
+                chip.className = `date-chip ${isClosed ? 'closed' : ''}`;
+                chip.dataset.date = dateStr;
+
+                chip.innerHTML = `
+                    <div class="day-name">${DAY_NAMES[dayOfWeek]}</div>
+                    <div class="day-num">${dateObj.getDate()}</div>
+                    <div class="month-name">${MONTH_NAMES[dateObj.getMonth()]} ${isClosed ? '(Closed)' : ''}</div>
+                `;
+
+                if (!isClosed && !firstSelectedDateStr) {
+                    firstSelectedDateStr = dateStr;
+                    chip.classList.add('selected');
+                }
+
+                if (!isClosed) {
+                    chip.onclick = () => {
+                        document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('selected'));
+                        chip.classList.add('selected');
+                        document.getElementById('bookingDate').value = dateStr;
+                        render15MinTimeSlots(dateStr);
+                    };
+                }
+
+                container.appendChild(chip);
+            }
+
+            if (firstSelectedDateStr) {
+                document.getElementById('bookingDate').value = firstSelectedDateStr;
+                render15MinTimeSlots(firstSelectedDateStr);
+            }
+        }
+
+        // 2. Render 15-Minute Slot Pills Grid
+        async function render15MinTimeSlots(dateStr) {
+            const container = document.getElementById('slotsGridContainer');
+            const slotInput = document.getElementById('selectedTimeSlot');
+            if (!container || !dateStr) return;
+
+            container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:10px; color:var(--muted-gray);"><i class="fa-solid fa-spinner fa-spin"></i> Loading slots...</div>`;
+            slotInput.value = '';
+
+            const dateObj = new Date(dateStr + 'T00:00:00');
+            const dayOfWeek = dateObj.getDay();
+
+            // Fetch already booked slots from LocalStorage & Supabase
+            const localAppts = Store.get('local::appointments') || [];
+            let bookedSlots = localAppts.filter(a => a.appointment_date === dateStr && a.status !== 'Cancelled').map(a => a.time_slot);
+
+            if (window.db) {
+                try {
+                    const res = await window.db.from('appointments').select('time_slot').eq('appointment_date', dateStr).neq('status', 'Cancelled');
+                    const data = res.data || [];
+                    data.forEach(function(r){
+                        if (!bookedSlots.includes(r.time_slot)) bookedSlots.push(r.time_slot);
+                    });
+                } catch(e) { console.warn('[Supabase slots]', e); }
+            }
+
+            // 2-Hour Advance Cut-Off for TODAY
+            const now = new Date();
+            const yr = now.getFullYear();
+            const mo = String(now.getMonth() + 1).padStart(2, '0');
+            const da = String(now.getDate()).padStart(2, '0');
+            const todayStr = `${yr}-${mo}-${da}`;
+            const isToday = (dateStr === todayStr);
+
+            const currentMins = now.getHours() * 60 + now.getMinutes();
+            const minAllowedMins = currentMins + 120; // +2 Hours
+
+            let rawSlots = [];
+            if (dayOfWeek === 6) { // Saturday (11:15 AM - 08:00 PM)
+                let start = 11 * 60 + 15;
+                const end = 20 * 60;
+                while (start < end) {
+                    if (!isToday || start >= minAllowedMins) {
+                        rawSlots.push(formatMinsTo12Hr(start));
+                    }
+                    start += 15;
+                }
+            } else { // Mon, Tue, Thu, Fri (06:00 PM - 10:00 PM)
+                let start = 18 * 60;
+                const end = 22 * 60;
+                while (start < end) {
+                    if (!isToday || start >= minAllowedMins) {
+                        rawSlots.push(formatMinsTo12Hr(start));
+                    }
+                    start += 15;
+                }
+            }
+
+            container.innerHTML = '';
+
+            if (rawSlots.length === 0) {
+                container.innerHTML = `<div style="grid-column:1/-1; padding:14px; background:#FFF3CD; border:1px solid #FFE69C; color:#856404; border-radius:var(--radius-sm); font-weight:700; font-size:0.88rem; text-align:center;">⌛ No open slots remaining for today (must book at least 2 hours in advance). Please select another date.</div>`;
+                return;
+            }
+
+            let firstOpenSelected = false;
+            rawSlots.forEach(slotStr => {
+                const pill = document.createElement('div');
+                const isBooked = bookedSlots.includes(slotStr);
+
+                let isSelected = false;
+                if (!isBooked && !firstOpenSelected) {
+                    isSelected = true;
+                    firstOpenSelected = true;
+                    slotInput.value = slotStr;
+                }
+
+                pill.className = `slot-pill ${isBooked ? 'booked' : ''} ${isSelected ? 'selected' : ''}`;
+                pill.textContent = isBooked ? `${slotStr} (Booked)` : slotStr;
+
+                if (!isBooked) {
+                    pill.onclick = () => {
+                        document.querySelectorAll('.slot-pill').forEach(p => p.classList.remove('selected'));
+                        pill.classList.add('selected');
+                        slotInput.value = slotStr;
+                    };
+                }
+
+                container.appendChild(pill);
+            });
+        }
+
+        function formatMinsTo12Hr(totalMins) {
+            const h24 = Math.floor(totalMins / 60);
+            const mins = totalMins % 60;
+            const ampm = h24 >= 12 ? 'PM' : 'AM';
+            let h12 = h24 % 12;
+            if (h12 === 0) h12 = 12;
+            return `${String(h12).padStart(2,'0')}:${String(mins).padStart(2,'0')} ${ampm}`;
+        }
+
+        // 3. Synchronous OPD Number Generator
+        function getNextOPDNumberSync() {
+            let lastNo = Store.get('last_opd_number') || 11000;
+            const localAppts = Store.get('local::appointments') || [];
+            localAppts.forEach(a => {
+                const n = parseInt(a.opd_number, 10);
+                if (!isNaN(n) && n > lastNo) lastNo = n;
+            });
+            const nextNo = lastNo + 1;
+            Store.set('last_opd_number', nextNo);
+            return nextNo;
+        }
+
+        // 4. Handle OPD Booking Submit Handler
+        let _isSubmitting = false;
+        function handleOPDBookingSubmit(e) {
+            e.preventDefault();
+            if (_isSubmitting) return;
+            _isSubmitting = true;
+
+            const submitBtn = document.getElementById('bookingSubmitBtn');
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating Ticket...'; }
+
+            function releaseBtn(msg) {
+                _isSubmitting = false;
+                if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Book OPD &amp; Generate Ticket'; }
+                if (msg) setTimeout(function(){ alert(msg); }, 50);
+            }
+
+            try {
+                var name    = (document.getElementById('patientName').value || '').trim();
+                var age     = document.getElementById('patientAge').value || '';
+                var rawPhone = (document.getElementById('patientPhone').value || '').replace(/\D/g,'');
+                var phone   = rawPhone.length > 10 ? rawPhone.slice(-10) : rawPhone;
+                var email   = (document.getElementById('patientEmail').value || '').trim();
+                var service = document.getElementById('bookingService').value || '';
+                var date    = document.getElementById('bookingDate').value || '';
+                var slotEl  = document.getElementById('selectedTimeSlot');
+                var slot    = slotEl ? slotEl.value : '';
+                var notes   = (document.getElementById('patientNotes').value || '').trim();
+
+                if (!name)                    { releaseBtn('Please enter the patient full name.'); return; }
+                if (!phone || phone.length < 10){ releaseBtn('Please enter a valid 10-digit mobile number.'); return; }
+                if (!date)                    { releaseBtn('Please select a consultation date.'); return; }
+
+                if (!slot) {
+                    var firstOpen = document.querySelector('.slot-pill:not(.booked)');
+                    if (firstOpen) { slot = firstOpen.textContent.replace('(Booked)','').trim(); if(slotEl) slotEl.value = slot; }
+                    else { releaseBtn('No open slots available. Please select another date.'); return; }
+                }
+
+                var localAppts = Store.get('local::appointments') || [];
+                var dup = localAppts.find(function(a){ return a.appointment_date===date && a.time_slot===slot && a.status!=='Cancelled'; });
+                if (dup) {
+                    releaseBtn(null);
+                    render15MinTimeSlots(date);
+                    setTimeout(function(){ alert('Time slot "'+slot+'" on '+date+' is already booked. Please pick another.'); }, 50);
+                    return;
+                }
+
+                var opdNo = getNextOPDNumberSync();
+                var uid   = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : ('opd-'+Date.now()+'-'+Math.random().toString(36).slice(2));
+
+                var rec = {
+                    id: uid,
+                    opd_number: opdNo,
+                    opd_ticket_id: 'OPD-'+opdNo,
+                    patient_name: name,
+                    patient_age: age,
+                    phone: phone,
+                    email: email,
+                    service: service,
+                    appointment_date: date,
+                    time_slot: slot,
+                    notes: notes,
+                    status: 'Upcoming',
+                    created_at: new Date().toISOString()
+                };
+
+                localAppts.unshift(rec);
+                Store.set('local::appointments', localAppts);
+
+                if (window.db) {
+                    (async function(){
+                        try { await window.db.from('appointments').insert(rec); }
+                        catch(err){ console.warn('[Supabase insert]', err); }
+                    })();
+                }
+
+                currentBookingSlipData = rec;
+
+                document.getElementById('modalTicketNumberTag').textContent = 'OPD-'+opdNo;
+                document.getElementById('modalConfOpdNo').textContent       = opdNo;
+                document.getElementById('modalConfName').textContent        = name;
+                document.getElementById('modalConfAge').textContent         = age;
+                document.getElementById('modalConfDateTime').textContent    = date+' at '+slot;
+                document.getElementById('modalConfService').textContent     = service;
+
+                var waText = 'Hello Dr. Swati Gawai Clinic!\nOPD Booked\nOPD No: OPD-'+opdNo+'\nPatient: '+name+' (Age '+age+')\nDate & Time: '+date+' at '+slot+'\nCategory: '+service;
+                document.getElementById('modalWhatsappConfirmBtn').href = 'https://wa.me/919321498329?text='+encodeURIComponent(waText);
+
+                var modal = document.getElementById('opdTicketModal');
+                if (modal) {
+                    modal.style.display        = 'flex';
+                    modal.style.position       = 'fixed';
+                    modal.style.top            = '0';
+                    modal.style.left           = '0';
+                    modal.style.width          = '100vw';
+                    modal.style.height         = '100vh';
+                    modal.style.background     = 'rgba(0,0,0,0.82)';
+                    modal.style.zIndex         = '2147483647';
+                    modal.style.alignItems     = 'center';
+                    modal.style.justifyContent = 'center';
+                    modal.style.padding        = '20px';
+                    modal.style.boxSizing      = 'border-box';
+                    document.body.style.overflow = 'hidden';
+                }
+
+                releaseBtn(null);
+                render15MinTimeSlots(date);
+
+            } catch(err) {
+                console.error('[Booking error]', err);
+                releaseBtn('An error occurred: '+err.message+'\n\nPlease try again.');
+            }
+        }
+
+
+        function closeOpdTicketModal() {
+            const modal = document.getElementById('opdTicketModal');
+            if (modal) {
+                modal.style.cssText = 'display:none'; // fully reset inline styles
+            }
+            document.body.style.overflow = '';
+
+            const form = document.getElementById('opdBookingForm');
+            if (form) {
+                form.reset();
+                renderRolling15DayChips();
+            }
+        }
+
+        function printOfficialHospitalOpdSlip() {
+            if (!currentBookingSlipData) return;
+            const b = currentBookingSlipData;
+
+            const opdEl = document.getElementById('printOpdNumber');
+            if (opdEl) opdEl.textContent = b.opd_number || b.opd_ticket_id;
+
+            const nameEl = document.getElementById('printPatientName');
+            if (nameEl) nameEl.textContent = b.patient_name;
+
+            const ageEl = document.getElementById('printPatientAge');
+            if (ageEl) ageEl.textContent = b.patient_age || '-';
+
+            const dateEl = document.getElementById('printDateTime');
+            if (dateEl) dateEl.textContent = `${b.appointment_date} @ ${b.time_slot}`;
+
+            window.print();
+        }
+
+        function switchOpdTab(tabId) {
+            document.querySelectorAll('.opd-tab-btn').forEach(b => b.classList.remove('active'));
+            if (tabId === 'book') document.getElementById('tabBookBtn').classList.add('active');
+            if (tabId === 'status') document.getElementById('tabStatusBtn').classList.add('active');
+            if (tabId === 'cancel') document.getElementById('tabCancelBtn').classList.add('active');
+
+            document.getElementById('section-book').style.display = tabId === 'book' ? 'block' : 'none';
+            document.getElementById('section-status').style.display = tabId === 'status' ? 'block' : 'none';
+            document.getElementById('section-cancel').style.display = tabId === 'cancel' ? 'block' : 'none';
+        }
+
+        function searchOpdStatus() {
+            const query = document.getElementById('statusSearchQuery').value.trim().toLowerCase();
+            const resultBox = document.getElementById('statusSearchResult');
+            if (!query) return;
+
+            const localAppts = Store.get('local::appointments') || [];
+            const matches = localAppts.filter(a => 
+                String(a.opd_number).includes(query) || 
+                (a.opd_ticket_id && a.opd_ticket_id.toLowerCase().includes(query)) ||
+                (a.patient_name && a.patient_name.toLowerCase().includes(query)) ||
+                (a.phone && a.phone.includes(query))
+            );
+
+            if (!matches.length) {
+                resultBox.innerHTML = `<div style="padding:16px; text-align:center; color:#DC2626; font-weight:700; font-size:0.9rem;">No OPD appointment found matching "${query}".</div>`;
+                return;
+            }
+
+            resultBox.innerHTML = matches.map(a => `
+                <div style="background:var(--yellow-bg); padding:16px; border-radius:var(--radius-sm); border:1.5px solid var(--light-border); margin-bottom:12px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                        <span style="font-family:var(--font-heading); font-size:1.1rem; font-weight:800; color:var(--orange-primary);">OPD #${a.opd_number || a.opd_ticket_id}</span>
+                        <span style="padding:4px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; ${a.status === 'Completed' ? 'background:#DCFCE7; color:#15803D;' : (a.status === 'Cancelled' ? 'background:#FEE2E2; color:#DC2626;' : 'background:var(--yellow-soft); color:var(--orange-primary);')}">${a.status || 'Upcoming'}</span>
+                    </div>
+                    <div style="font-size:0.88rem; color:var(--ink-dark);">
+                        <strong>Patient:</strong> ${a.patient_name} (Age: ${a.patient_age || '-'})<br>
+                        <strong>Date & Time:</strong> ${a.appointment_date} at ${a.time_slot}<br>
+                        <strong>Category:</strong> ${a.service}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleSecureCancellation() {
+            const opdNo = document.getElementById('cancelOpdNo').value.trim();
+            const phoneLast4 = document.getElementById('cancelPhoneLast4').value.trim();
+
+            if (!opdNo || phoneLast4.length !== 4) {
+                alert('Please enter a valid OPD Number and the last 4 digits of your mobile number.');
+                return;
+            }
+
+            const localAppts = Store.get('local::appointments') || [];
+            const target = localAppts.find(a => String(a.opd_number) === opdNo || a.opd_ticket_id === 'OPD-' + opdNo);
+
+            if (!target) {
+                alert('OPD Number not found.');
+                return;
+            }
+
+            if (target.phone.slice(-4) !== phoneLast4) {
+                alert('Phone number verification failed! The last 4 digits do not match.');
+                return;
+            }
+
+            target.status = 'Cancelled';
+            Store.set('local::appointments', localAppts);
+            alert(`OPD #${opdNo} has been successfully cancelled.`);
+            
+            document.getElementById('cancelOpdNo').value = '';
+            document.getElementById('cancelPhoneLast4').value = '';
+            switchOpdTab('status');
+        }
+    </script>
+</body>
+</html>

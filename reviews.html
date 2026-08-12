@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Reviews & Ratings | Dr. Swati Gawai — Gynecologist Chembur Mumbai</title>
+    <meta name="description" content="Read patient reviews & 4.9-star ratings for Dr. Swati Gawai — Consultant Gynecologist, Obstetrician & Robotic Surgeon at Ameeta Nursing Home, Chembur, Mumbai. Verified patient experiences on Google Maps (269+ Reviews) & Justdial (250+ Ratings).">
+    <link rel="canonical" href="https://drswatigawai.com/reviews">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://drswatigawai.com/reviews">
+    <meta property="og:title" content="Patient Reviews & Ratings | Dr. Swati Gawai">
+    <meta property="og:description" content="269+ verified patient reviews and 4.9-star rating for Dr. Swati Gawai in Chembur, Mumbai.">
+    <meta property="og:image" content="https://drswatigawai.com/images/doctor%20image.jpeg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Master Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .reviews-hero {
+            background: linear-gradient(135deg, #FFF8E7 0%, #FFFDF5 100%);
+            border-bottom: 1px solid var(--light-border);
+            padding: 44px 0 36px;
+            text-align: center;
+        }
+
+        .rating-hero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .rating-metric-card {
+            background: var(--white);
+            border: 1.5px solid var(--amber-gold);
+            border-radius: var(--radius-lg);
+            padding: 20px 16px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .review-card {
+            background: var(--white);
+            border: 1px solid var(--light-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--amber-gold);
+        }
+
+        .star-rating {
+            color: #FFB300;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .review-filter-btn {
+            background: var(--white);
+            border: 1.5px solid var(--light-border);
+            color: var(--ink-soft);
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 99px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .review-filter-btn:hover, .review-filter-btn.active {
+            background: var(--orange-primary);
+            border-color: var(--orange-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(232, 86, 10, 0.25);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Loader -->
+    <div id="site-loader">
+        <img src="images/logo.jpg" alt="Dr. Swati Gawai Logo" class="loader-logo" onerror="this.src='https://via.placeholder.com/80';">
+        <div class="loader-title">Dr. Swati Gawai</div>
+        <div class="loader-subtitle">Patient Reviews &amp; Ratings</div>
+        <div class="loader-progress-track">
+            <div class="loader-progress-bar" id="loaderProgressBar"></div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header" id="siteHeader">
+        <div class="container header-container">
+            <a href="index.html" class="brand-wrapper">
+                <img src="images/logo.jpg" alt="Logo" class="brand-logo-img" onerror="this.src='https://via.placeholder.com/46';">
+                <div>
+                    <div class="brand-name">Dr. Swati Gawai</div>
+                    <div class="brand-tag">Gynecologist, Obstetrician &amp; Robotic Surgeon</div>
+                </div>
+            </a>
+
+            <ul class="nav-links-desktop">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">Profile</a></li>
+                <li><a href="specialties.html">Specialties</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html" class="active">Reviews</a></li>
+                <li><a href="certificates.html">Certificates</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="btn btn-secondary btn-book-opd-flash" style="padding:6px 16px; font-size:0.85rem;"><i class="fa-solid fa-calendar-check"></i> Book OPD</a></li>
+            </ul>
+
+            <button class="mobile-burger-btn" id="mobileBurgerBtn" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Offcanvas Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <aside class="mobile-drawer" id="mobileDrawer">
+        <div>
+            <div class="brand-wrapper" style="margin-bottom:24px;">
+                <img src="images/logo.jpg" alt="Logo" class="brand-logo-img">
+                <div>
+                    <div class="brand-name">Dr. Swati Gawai</div>
+                    <div class="brand-tag">Gynecologist, Obstetrician &amp; Robotic Surgeon</div>
+                </div>
+            </div>
+            <ul class="drawer-nav-list">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="index.html#about"><i class="fa-solid fa-user-doctor"></i> About Dr. Gawai</a></li>
+                <li><a href="specialties.html"><i class="fa-solid fa-stethoscope"></i> Specialties</a></li>
+                <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Photo Gallery</a></li>
+                <li><a href="certificates.html"><i class="fa-solid fa-certificate"></i> Certificates</a></li>
+                <li><a href="blog.html"><i class="fa-solid fa-newspaper"></i> Health Blog</a></li>
+                <li><a href="reviews.html"><i class="fa-solid fa-star"></i> Patient Reviews</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Contact &amp; Map</a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-check"></i> Book OPD</a></li>
+            </ul>
+        </div>
+        <div>
+            <a href="tel:+919321498329" class="btn btn-primary" style="width:100%;"><i class="fa-solid fa-phone"></i> Call +91 93214 98329</a>
+        </div>
+    </aside>
+
+    <!-- Reviews Hero Section -->
+    <section class="reviews-hero">
+        <div class="container">
+            <span class="section-tag"><i class="fa-solid fa-star"></i> Verified Patient Testimonials</span>
+            <h1 class="section-heading" style="font-size:2.2rem; max-width:640px; margin:10px auto 8px;">
+                Patient Reviews &amp; <span style="color:var(--orange-primary);">Ratings</span>
+            </h1>
+            <p style="font-size:0.95rem; color:var(--ink-soft); max-width:580px; margin:0 auto; line-height:1.6;">
+                Real experiences from patients treated at Ameeta Nursing Home, Chembur, and LTMMC Sion Hospital, Mumbai.
+            </p>
+
+            <!-- Verified Ratings Breakdown Cards -->
+            <div class="rating-hero-grid">
+                <div class="rating-metric-card">
+                    <div style="font-size:0.75rem; background:#EA4335; color:white; font-weight:800; padding:2px 10px; border-radius:99px; display:inline-block; margin-bottom:8px;"><i class="fa-brands fa-google"></i> Google Maps Rating</div>
+                    <div style="font-family:var(--font-heading); font-size:2.4rem; font-weight:900; color:var(--orange-primary);">4.9<span style="font-size:1.6rem;">&#9733;</span></div>
+                    <div style="font-size:0.85rem; font-weight:700; color:var(--ink-dark); margin-top:2px;">269+ Verified Reviews</div>
+                </div>
+
+                <div class="rating-metric-card">
+                    <div style="font-size:0.75rem; background:#FF5E00; color:white; font-weight:800; padding:2px 10px; border-radius:99px; display:inline-block; margin-bottom:8px;"><i class="fa-solid fa-thumbs-up"></i> Justdial Rating</div>
+                    <div style="font-family:var(--font-heading); font-size:2.4rem; font-weight:900; color:var(--orange-primary);">4.9<span style="font-size:1.6rem;">&#9733;</span></div>
+                    <div style="font-size:0.85rem; font-weight:700; color:var(--ink-dark); margin-top:2px;">250+ Ratings on Justdial</div>
+                </div>
+
+                <div class="rating-metric-card">
+                    <div style="font-size:0.75rem; background:#00B0FF; color:white; font-weight:800; padding:2px 10px; border-radius:99px; display:inline-block; margin-bottom:8px;"><i class="fa-solid fa-heart-pulse"></i> Clinical Satisfaction</div>
+                    <div style="font-family:var(--font-heading); font-size:2.4rem; font-weight:900; color:var(--orange-primary);">100%</div>
+                    <div style="font-size:0.85rem; font-weight:700; color:var(--ink-dark); margin-top:2px;">Patient Recommendation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Filter & Cards List -->
+    <section style="padding:36px 0 60px; background:var(--white);">
+        <div class="container">
+
+            <!-- Category Filter -->
+            <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:28px;">
+                <button class="review-filter-btn active" onclick="filterReviews('all', this)">All Reviews</button>
+                <button class="review-filter-btn" onclick="filterReviews('pregnancy', this)">High-Risk Pregnancy</button>
+                <button class="review-filter-btn" onclick="filterReviews('laparoscopy', this)">Laparoscopy &amp; Surgery</button>
+                <button class="review-filter-btn" onclick="filterReviews('infertility', this)">Infertility Treatment</button>
+                <button class="review-filter-btn" onclick="filterReviews('gynecology', this)">General Gynecology</button>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(310px, 1fr)); gap:20px;" id="reviewsGrid">
+
+                <!-- Review 1 -->
+                <div class="review-card" data-cat="pregnancy">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span style="font-size:0.75rem; color:#EA4335; font-weight:800; background:#FCE8E6; padding:2px 8px; border-radius:99px;"><i class="fa-brands fa-google"></i> Google Review</span>
+                        </div>
+                        <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.65; margin-bottom:16px;">
+                            "Dr. Swati Gawai handled my high-risk pregnancy with extreme care and confidence. When complications arose in my 34th week, her quick medical decision saved both me and my baby. Her OPD at Ameeta Nursing Home Chembur is very well organized. Highly recommended!"
+                        </p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; border-top:1px solid var(--yellow-soft); padding-top:12px;">
+                        <div style="width:40px; height:40px; border-radius:50%; background:var(--orange-primary); color:white; font-weight:800; display:flex; align-items:center; justify-content:center;">PS</div>
+                        <div>
+                            <div style="font-size:0.9rem; font-weight:800; color:var(--ink-dark);">Priya Sharma</div>
+                            <div style="font-size:0.78rem; color:var(--ink-soft);">High-Risk Delivery &bull; Chembur, Mumbai</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card" data-cat="laparoscopy">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span style="font-size:0.75rem; color:#FF5E00; font-weight:800; background:#FFF0E6; padding:2px 8px; border-radius:99px;"><i class="fa-solid fa-thumbs-up"></i> Justdial Review</span>
+                        </div>
+                        <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.65; margin-bottom:16px;">
+                            "I underwent laparoscopic ovarian cyst surgery under Dr. Swati Gawai at Ameeta Nursing Home. I was very nervous initially, but Dr. Swati explained everything so clearly. Painless surgery and I recovered completely in 2 days. Truly a master laparoscopic surgeon!"
+                        </p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; border-top:1px solid var(--yellow-soft); padding-top:12px;">
+                        <div style="width:40px; height:40px; border-radius:50%; background:#FFB300; color:white; font-weight:800; display:flex; align-items:center; justify-content:center;">VK</div>
+                        <div>
+                            <div style="font-size:0.9rem; font-weight:800; color:var(--ink-dark);">Vaishali Kadam</div>
+                            <div style="font-size:0.78rem; color:var(--ink-soft);">Laparoscopic Surgery &bull; Ghatkopar East</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card" data-cat="infertility">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span style="font-size:0.75rem; color:#EA4335; font-weight:800; background:#FCE8E6; padding:2px 8px; border-radius:99px;"><i class="fa-brands fa-google"></i> Google Review</span>
+                        </div>
+                        <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.65; margin-bottom:16px;">
+                            "After 4 years of trying to conceive and visiting multiple clinics, Dr. Swati Gawai diagnosed my endometriosis through diagnostic hysterolaparoscopy. With her medical guidance, we conceived naturally within 6 months! We are forever grateful to Dr. Swati."
+                        </p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; border-top:1px solid var(--yellow-soft); padding-top:12px;">
+                        <div style="width:40px; height:40px; border-radius:50%; background:var(--orange-primary); color:white; font-weight:800; display:flex; align-items:center; justify-content:center;">AD</div>
+                        <div>
+                            <div style="font-size:0.9rem; font-weight:800; color:var(--ink-dark);">Anagha &amp; Dipesh Patel</div>
+                            <div style="font-size:0.78rem; color:var(--ink-soft);">Infertility &amp; Laparoscopy &bull; Sion, Mumbai</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="review-card" data-cat="pregnancy">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span style="font-size:0.75rem; color:#EA4335; font-weight:800; background:#FCE8E6; padding:2px 8px; border-radius:99px;"><i class="fa-brands fa-google"></i> Google Review</span>
+                        </div>
+                        <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.65; margin-bottom:16px;">
+                            "Dr. Swati Gawai is not just an exceptionally skilled gynecologist, but also a very empathetic doctor. She guided us through every trimester, managed my gestational diabetes perfectly, and performed a smooth normal delivery. The staff at Ameeta Nursing Home is also wonderful."
+                        </p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; border-top:1px solid var(--yellow-soft); padding-top:12px;">
+                        <div style="width:40px; height:40px; border-radius:50%; background:#FFB300; color:white; font-weight:800; display:flex; align-items:center; justify-content:center;">SN</div>
+                        <div>
+                            <div style="font-size:0.9rem; font-weight:800; color:var(--ink-dark);">Sneha Nair</div>
+                            <div style="font-size:0.78rem; color:var(--ink-soft);">Normal Delivery &bull; Chembur, Mumbai</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="review-card" data-cat="gynecology">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span style="font-size:0.75rem; color:#FF5E00; font-weight:800; background:#FFF0E6; padding:2px 8px; border-radius:99px;"><i class="fa-solid fa-thumbs-up"></i> Justdial Review</span>
+                        </div>
+                        <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.65; margin-bottom:16px;">
+                            "Extremely compassionate doctor! Dr. Swati treated my severe PCOS and irregular periods. Her holistic approach, diet advice, and precise medication worked wonders. My ultrasound reports are completely normal now."
+                        </p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; border-top:1px solid var(--yellow-soft); padding-top:12px;">
+                        <div style="width:40px; height:40px; border-radius:50%; background:var(--orange-primary); color:white; font-weight:800; display:flex; align-items:center; justify-content:center;">RP</div>
+                        <div>
+                            <div style="font-size:0.9rem; font-weight:800; color:var(--ink-dark);">Ritu Pawar</div>
+                            <div style="font-size:0.78rem; color:var(--ink-soft);">PCOS Management &bull; Kurla East</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 6 -->
+                <div class="review-card" data-cat="laparoscopy">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span style="font-size:0.75rem; color:#EA4335; font-weight:800; background:#FCE8E6; padding:2px 8px; border-radius:99px;"><i class="fa-brands fa-google"></i> Google Review</span>
+                        </div>
+                        <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.65; margin-bottom:16px;">
+                            "I had a large uterine fibroid causing heavy bleeding. Dr. Swati Gawai performed a laparoscopic myomectomy at Ameeta Nursing Home with minimal scars. Her expertise as an Assistant Professor at Sion Hospital truly reflects in her surgical skill."
+                        </p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; border-top:1px solid var(--yellow-soft); padding-top:12px;">
+                        <div style="width:40px; height:40px; border-radius:50%; background:#FFB300; color:white; font-weight:800; display:flex; align-items:center; justify-content:center;">MK</div>
+                        <div>
+                            <div style="font-size:0.9rem; font-weight:800; color:var(--ink-dark);">Meenakshi Kulkarni</div>
+                            <div style="font-size:0.78rem; color:var(--ink-soft);">Laparoscopic Myomectomy &bull; Tilak Nagar</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Submit Review / Google Maps Link CTA -->
+            <div style="background:var(--yellow-soft); border:1.5px solid var(--amber-gold); border-radius:var(--radius-lg); padding:28px; margin-top:36px; text-align:center;">
+                <h3 style="font-family:var(--font-heading); font-size:1.4rem; color:var(--ink-dark); margin-bottom:6px;">Have you consulted Dr. Swati Gawai?</h3>
+                <p style="font-size:0.9rem; color:var(--ink-soft); max-width:540px; margin:0 auto 18px;">Your feedback helps other expectant mothers and patients choose quality healthcare in Chembur, Mumbai.</p>
+                <a href="https://share.google/yy7Wd4eFoEcTQVyiM" target="_blank" class="btn btn-primary" style="padding:10px 26px; font-weight:800; background:#EA4335; border-color:#EA4335;"><i class="fa-brands fa-google"></i> Add on Google</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section style="background:linear-gradient(135deg,var(--orange-primary),#FFB300); padding:36px 0; text-align:center;">
+        <div class="container">
+            <h2 style="font-family:var(--font-heading); font-size:1.8rem; color:white; margin-bottom:8px;">Ready to Consult Dr. Swati Gawai?</h2>
+            <p style="font-size:0.92rem; color:rgba(255,255,255,0.92); margin-bottom:20px;">Book your OPD appointment at Ameeta Nursing Home, Chembur East, Mumbai.</p>
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                <a href="booking.html" style="background:white; color:var(--orange-primary); font-weight:800; padding:12px 26px; border-radius:99px; text-decoration:none; font-size:0.92rem; box-shadow:0 6px 20px rgba(0,0,0,0.15);"><i class="fa-solid fa-calendar-check"></i> Book OPD Consultation</a>
+                <a href="tel:+919321498329" style="background:rgba(255,255,255,0.15); color:white; font-weight:800; padding:12px 26px; border-radius:99px; text-decoration:none; font-size:0.92rem; border:2px solid rgba(255,255,255,0.5);"><i class="fa-solid fa-phone"></i> Call +91 93214 98329</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background:var(--dark-slate); color:var(--white); padding:32px 0 20px;">
+        <div class="container text-center">
+            <img src="images/logo.jpg" alt="Dr. Swati Gawai Logo" style="width:52px; height:52px; border-radius:50%; border:2px solid var(--orange-primary); margin-bottom:8px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/52';">
+            <h3 style="font-family:var(--font-heading); font-size:1.35rem; color:var(--white); margin-bottom:4px;">Dr. Swati Gawai</h3>
+            <p style="font-size:0.82rem; color:rgba(255,255,255,0.6);">MBBS, MS (OBGY), DGO, FMAS, FICOG</p>
+            <p style="font-size:0.82rem; color:rgba(255,255,255,0.5); margin-top:6px;">Ameeta Nursing Home, 1st Floor, Road No. 1, Chembur East, Mumbai – 400071</p>
+            <p style="font-size:0.75rem; color:rgba(255,255,255,0.35); margin-top:14px;">&copy; 2026 Dr. Swati Gawai. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script Engine -->
+    <script src="script.js"></script>
+    <script>
+        function filterReviews(cat, btn) {
+            document.querySelectorAll('.review-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.review-card').forEach(card => {
+                if (cat === 'all' || card.dataset.cat === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="dynamicBlogPageTitle">Women's Health Blog & Articles | Dr. Swati Gawai Chembur</title>
+    <meta name="description" id="dynamicBlogMetaDesc" content="Read expert women's health articles, pregnancy tips, laparoscopic surgery advice, and wellness blogs by Dr. Swati Gawai, Senior Gynecologist & Obstetrician in Mumbai.">
+    <meta name="keywords" id="dynamicBlogMetaKeywords" content="Gynecologist Blog Mumbai, Pregnancy Tips Chembur, High Risk Pregnancy Articles, Laparoscopy Guide, Dr Swati Gawai Health Blog">
+    <link rel="canonical" id="dynamicBlogCanonical" href="https://drswatigawai.com/blog">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" id="ogBlogUrl" content="https://drswatigawai.com/blog">
+    <meta property="og:title" id="ogBlogTitle" content="Women's Health Blog & Articles | Dr. Swati Gawai">
+    <meta property="og:description" id="ogBlogDesc" content="Expert women's health articles, robotic surgery insights, and pregnancy advice by Dr. Swati Gawai, Senior Gynecologist in Chembur.">
+    <meta property="og:image" id="ogBlogImage" content="https://drswatigawai.com/images/profie%201.jpg">
+    <meta property="og:image:secure_url" content="https://drswatigawai.com/images/profie%201.jpg">
+
+    <!-- Enhanced Twitter (X) Card Meta Tags for drswatigawai.com -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gynaecdrswati99">
+    <meta name="twitter:creator" content="@gynaecdrswati99">
+    <meta name="twitter:domain" content="drswatigawai.com">
+    <meta name="twitter:title" id="twBlogTitle" content="Women's Health Blog & Articles | Dr. Swati Gawai">
+    <meta name="twitter:description" id="twBlogDesc" content="Expert medical insights, pregnancy guidance, robotic surgery, and gynecological care articles by Dr. Swati Gawai.">
+    <meta name="twitter:image" id="twBlogImage" content="https://drswatigawai.com/images/profie%201.jpg">
+    <meta name="twitter:image:src" content="https://drswatigawai.com/images/profie%201.jpg">
+    <meta name="twitter:image:alt" content="Women's Health Blog - Dr. Swati Gawai">
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    
+    <!-- Dynamic JSON-LD BlogPosting Schema Placeholder -->
+    <script id="dynamicBlogSchema" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Dr. Swati Gawai Women's Health Blog",
+      "url": "https://drswatigawai.in/blog"
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. Full Page Digital Splash Loader -->
+    <div id="site-loader">
+        <img src="images/logo.jpg" alt="Dr. Swati Gawai Logo" class="loader-logo" onerror="this.src='https://via.placeholder.com/80';">
+        <div class="loader-title">Dr. Swati Gawai</div>
+        <div class="loader-subtitle">Gynecologist, Obstetrician & Robotic Surgeon</div>
+        <div class="loader-progress-track">
+            <div class="loader-progress-bar" id="loaderProgressBar"></div>
+        </div>
+    </div>
+
+    <!-- 1. Site Header Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-wrapper">
+                <img src="images/logo.jpg" alt="Dr. Swati Gawai Logo" class="brand-logo-img" onerror="this.src='https://via.placeholder.com/46';">
+                <div>
+                    <div class="brand-name">Dr. Swati Gawai</div>
+                    <div class="brand-tag">Gynecologist, Obstetrician & Robotic Surgeon</div>
+                </div>
+            </a>
+            
+            <ul class="nav-links-desktop">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">Profile</a></li>
+                <li><a href="specialties.html">Specialties</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="certificates.html">Certificates</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="btn btn-secondary btn-book-opd-flash" style="padding:6px 16px; font-size:0.85rem;"><i class="fa-solid fa-calendar-check"></i> Book OPD</a></li>
+            </ul>
+
+            <button class="mobile-burger-btn" id="mobileBurgerBtn" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Offcanvas Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <aside class="mobile-drawer" id="mobileDrawer">
+        <div>
+            <div class="brand-wrapper" style="margin-bottom:24px;">
+                <img src="images/logo.jpg" alt="Logo" class="brand-logo-img">
+                <div>
+                    <div class="brand-name">Dr. Swati Gawai</div>
+                    <div class="brand-tag">Gynecologist, Obstetrician & Robotic Surgeon</div>
+                </div>
+            </div>
+            <ul class="drawer-nav-list">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="index.html#about"><i class="fa-solid fa-user-doctor"></i> About Dr. Gawai</a></li>
+                <li><a href="index.html#services"><i class="fa-solid fa-stethoscope"></i> Specialties</a></li>
+                <li><a href="blog.html"><i class="fa-solid fa-newspaper"></i> Health Blog</a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-check"></i> Book OPD</a></li>
+                <li><a href="index.html#contact"><i class="fa-solid fa-location-dot"></i> Contact & Map</a></li>
+            </ul>
+        </div>
+        <div>
+            <a href="tel:+919321498329" class="btn btn-primary" style="width:100%;"><i class="fa-solid fa-phone"></i> Call +91 93214 98329</a>
+        </div>
+    </aside>
+
+    <!-- 3. Blog Hero Section -->
+    <section style="background:linear-gradient(180deg, var(--cream-hero) 0%, rgba(255,253,245,0.7) 100%); padding:48px 0 32px; border-bottom:1px solid var(--yellow-soft);">
+        <div class="container text-center">
+            <span class="section-tag">Medical Knowledge & Insights</span>
+            <h1 class="section-heading" style="font-size:2.3rem;">Women's Health & Medical Blog</h1>
+            <p style="max-width:600px; margin:0 auto 20px; color:var(--ink-soft); font-size:0.92rem;">
+                Evidence-based articles, pregnancy guides, laparoscopic advice, and clinical insights published by Dr. Swati Gawai.
+            </p>
+
+            <!-- Search Bar -->
+            <div style="max-width:520px; margin:0 auto; position:relative;">
+                <input type="text" id="blogSearchInput" placeholder="Search articles (e.g. 10 symptoms, pregnancy, PCOS)..." style="width:100%; padding:12px 18px 12px 44px; border-radius:99px; border:2px solid var(--light-border); outline:none; font-size:0.92rem; font-family:var(--font-body); box-shadow:var(--shadow-sm);">
+                <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--orange-primary); font-size:1rem;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Main Blog Grid & Category Filter Chips -->
+    <section class="section-padding" style="background:var(--white);">
+        <div class="container">
+            <!-- Category Filter Chips -->
+            <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:28px;" id="categoryChips">
+                <button class="btn btn-primary chip-btn active" data-cat="all">All Topics</button>
+                <button class="btn btn-secondary chip-btn" data-cat="Gynecology">Gynecology</button>
+                <button class="btn btn-secondary chip-btn" data-cat="Pregnancy Care">Pregnancy Care</button>
+                <button class="btn btn-secondary chip-btn" data-cat="Laparoscopic Surgery">Laparoscopy</button>
+                <button class="btn btn-secondary chip-btn" data-cat="Preventive Care">Preventive Care</button>
+            </div>
+
+            <!-- Dynamic Blog Cards Container -->
+            <div class="blog-grid" id="blogContainer">
+                <!-- Dynamically Populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Magazine-Style Blog Reader Modal -->
+    <div class="modal-overlay" id="blogReaderModal">
+        <div class="modal-box">
+            <button class="modal-close-btn" id="closeBlogModal">&times;</button>
+            <div id="blogReaderContent" class="blog-reader-container">
+                <!-- Dynamic Article Details -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Footer -->
+    <footer style="background:var(--dark-slate); color:var(--white); padding:40px 0 20px;">
+        <div class="container text-center">
+            <img src="images/logo.jpg" alt="Dr. Swati Gawai Clinic Logo" style="width:60px; height:60px; border-radius:50%; border:2px solid var(--orange-primary); margin-bottom:12px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/60';">
+            <h3 style="font-family:var(--font-heading); color:var(--white); margin-bottom:2px;">Dr. Swati Gawai</h3>
+            <p style="font-size:0.85rem; color:var(--orange-primary); font-weight:800; margin-bottom:4px;">MBBS, MS (OBGY), DGO, FMAS, FICOG</p>
+            <p style="font-size:0.85rem; color:var(--amber-gold); margin-bottom:14px;">Obstetrician, Gynecologist & Robotic Surgeon | MMC Reg: 4244 / 2015/08/4244</p>
+            <div style="font-size:0.75rem; color:rgba(255,255,255,0.4);">
+                © 2026 Dr. Swati Gawai. All Rights Reserved. &nbsp;|&nbsp; 
+                <a href="index.html#termsModal" style="color:var(--amber-gold); text-decoration:underline;">Terms & Conditions</a> &nbsp;|&nbsp; 
+                <a href="admin.html" style="color:rgba(255,255,255,0.5); text-decoration:underline;">Admin Portal</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 7. Mobile Sticky Action Bar -->
+    <div class="mobile-action-bar">
+        <a href="tel:+919321498329" class="mobile-action-btn" style="color:#0284C7;">
+            <i class="fa-solid fa-phone"></i>
+            <span>Call</span>
+        </a>
+        <a href="https://wa.me/919321498329" target="_blank" class="mobile-action-btn" style="color:#16A34A;">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>WhatsApp</span>
+        </a>
+        <a href="blog.html" class="mobile-action-btn" style="color:var(--orange-primary);">
+            <i class="fa-solid fa-newspaper"></i>
+            <span>Blog</span>
+        </a>
+        <a href="booking.html" class="mobile-action-btn" style="color:var(--amber-gold);">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Book OPD</span>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const FEATURED_ARTICLE_CONTENT = `Your reproductive and overall health deserve regular attention at every stage of life. While routine gynecological check-ups are essential for preventive care, certain symptoms should never be ignored. Early diagnosis and timely treatment can help prevent complications and ensure better long-term health. In this guide, **Dr. Swati Gawai**, an experienced gynecologist in Mumbai, highlights 10 common signs that indicate it's time to schedule a consultation.
+
+## 1. Irregular Menstrual Cycles
+If your periods are consistently irregular, unusually heavy, or absent for several months (when you're not pregnant), it may indicate hormonal imbalances, PCOS, thyroid disorders, or other underlying conditions that require medical evaluation.
+
+## 2. Severe Menstrual Pain
+While mild cramps are common, intense pelvic pain that interferes with your daily activities is not normal. Conditions such as endometriosis, fibroids, or pelvic inflammatory disease may be the cause.
+
+## 3. Unusual Vaginal Discharge
+A sudden change in the color, odor, or consistency of vaginal discharge—especially if accompanied by itching or irritation—may be a sign of an infection that requires prompt treatment.
+
+## 4. Persistent Pelvic Pain
+Ongoing pelvic discomfort or pain should never be overlooked. It may be associated with ovarian cysts, fibroids, infections, or other gynecological conditions that need proper diagnosis.
+
+## 5. Pain During Intercourse
+Pain during sexual intercourse can result from infections, vaginal dryness, endometriosis, or other medical conditions. Consulting a gynecologist can help identify the underlying cause and provide effective treatment.
+
+## 6. Abnormal Bleeding
+Bleeding between periods, after menopause, or after intercourse is not considered normal. Early medical evaluation is important to rule out hormonal issues, polyps, fibroids, or more serious conditions.
+
+## 7. Difficulty Getting Pregnant
+If you've been trying to conceive for 12 months (or 6 months if you're over 35), it's advisable to seek fertility evaluation. Early assessment can improve the chances of successful treatment.
+
+## 8. Symptoms of PCOS
+Weight gain, acne, excessive facial hair, hair thinning, and irregular periods may indicate Polycystic Ovary Syndrome (PCOS). Early diagnosis can help manage symptoms and protect long-term reproductive health.
+
+## 9. Menopause-Related Symptoms
+Hot flashes, mood changes, sleep disturbances, vaginal dryness, and irregular periods during your 40s or 50s may signal menopause or perimenopause. A gynecologist can recommend personalized treatment options to improve your quality of life.
+
+## 10. It's Time for Your Routine Check-Up
+Even if you're feeling healthy, regular gynecological examinations are important for preventive care. Routine screenings, Pap smears, breast examinations, and health counseling can help detect potential problems early.
+
+## Why Regular Gynecological Care Matters
+Preventive care plays a vital role in maintaining women's health. Regular visits allow for early detection of infections, cervical abnormalities, hormonal disorders, and reproductive health concerns before they become more serious.
+
+## Consult Dr. Swati Gawai in Mumbai
+If you're experiencing any of the symptoms mentioned above—or simply want to prioritize your reproductive health—don't delay seeking professional medical advice. Early diagnosis and personalized care can make a significant difference in your overall well-being. Book a consultation with **Dr. Swati Gawai**, a trusted gynecologist in Mumbai, for comprehensive women's healthcare, pregnancy care, fertility guidance, PCOS management, and preventive gynecological services.`;
+
+        const DEFAULT_BLOGS = [
+            {
+                id: '10-gynecological-symptoms-you-should-never-ignore',
+                title: '10 Gynecological Symptoms You Should Never Ignore',
+                category: 'Gynecology',
+                author: 'Dr. Swati Gawai',
+                image_url: 'images/consulting.webp',
+                snippet: 'Discover 10 crucial warning signs in women\'s reproductive health highlighting when to consult Dr. Swati Gawai in Mumbai.',
+                content: FEATURED_ARTICLE_CONTENT,
+                views_count: Store.get('blog_views::10-gynecological-symptoms-you-should-never-ignore') || 14,
+                published_at: new Date().toISOString()
+            }
+        ];
+
+        let allArticles = [];
+
+        async function fetchBlogs() {
+            let blogs = [];
+            if (window.db) {
+                try {
+                    const { data } = await window.db.from('blogs').select('*').eq('is_deleted', false).order('published_at', { ascending: false });
+                    if (data && data.length) blogs = data;
+                } catch(e) { console.warn('Supabase fetch fallback'); }
+            }
+            
+            const localBlogs = Store.get('local::blogs') || [];
+            const rawArticles = [...localBlogs, ...blogs, ...DEFAULT_BLOGS];
+            
+            const uniqueMap = new Map();
+            rawArticles.forEach(item => {
+                const slugKey = item.id || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                const storedViews = Store.get(`blog_views::${slugKey}`) || 0;
+                item.views_count = storedViews;
+
+                if (!uniqueMap.has(item.title)) {
+                    uniqueMap.set(item.title, item);
+                }
+            });
+            allArticles = Array.from(uniqueMap.values());
+
+            renderBlogs(allArticles);
+
+            // Check URL hash for direct deep-link SEO article reading
+            if (location.hash && location.hash.length > 1) {
+                const slugFromHash = location.hash.slice(1);
+                openBlogModal(slugFromHash);
+            }
+        }
+
+        function renderBlogs(articles) {
+            const container = document.getElementById('blogContainer');
+            if (!container) return;
+            if (!articles.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:50px 20px; width:100%; color:var(--muted-gray); font-size:1rem;">
+                        <i class="fa-solid fa-newspaper" style="font-size:2.2rem; color:var(--amber-gold); margin-bottom:12px;"></i><br>
+                        No published health articles found.<br>
+                        <small style="font-size:0.85rem;">Articles published by Dr. Swati Gawai in the Admin Portal will appear here.</small>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = articles.map(a => {
+                const slug = a.id || a.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                return `
+                    <div class="blog-card" onclick="openBlogModal('${slug}')">
+                        <img src="${a.image_url || 'images/consulting.webp'}" alt="${a.title}" class="blog-card-img" onerror="this.src='images/consulting.webp';">
+                        <div class="blog-card-body">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <span class="blog-meta-category">${a.category || 'Gynecology'}</span>
+                                </div>
+                                <h3 class="blog-card-title">${a.title}</h3>
+                                <p class="blog-card-snippet">${a.snippet || (a.content ? a.content.replace(/<[^>]*>?/gm, '').slice(0, 95) + '...' : '')}</p>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--yellow-soft); padding-top:12px; font-size:0.8rem; color:var(--muted-gray);">
+                                <span>✍️ ${a.author || 'Dr. Swati Gawai'}</span>
+                                <span>📅 ${new Date(a.published_at || Date.now()).toLocaleDateString('en-IN')}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Rich Markdown-to-HTML Formatter Engine for Articles
+        function formatBlogContentToRichHTML(rawText) {
+            if (!rawText) return '';
+            
+            if (rawText.includes('<p>') || rawText.includes('<div')) {
+                return rawText;
+            }
+
+            let text = rawText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            const lines = text.split('\n');
+
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('##')) {
+                    const headingText = trimmed.replace(/^##\s*/, '').replace(/<[^>]*>?/gm, '');
+                    const matchNum = headingText.match(/^(\d+)\.\s*(.*)/);
+                    if (matchNum) {
+                        html += `
+                            <div class="symptom-reader-card">
+                                <h4><span style="background:var(--yellow-soft); color:var(--orange-primary); width:28px; height:28px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:800;">${matchNum[1]}</span> ${matchNum[2]}</h4>
+                        `;
+                        inList = true;
+                    } else {
+                        if (inList) { html += `</div>`; inList = false; }
+                        html += `<h3 style="font-family:var(--font-heading); font-size:1.3rem; color:var(--orange-primary); margin:24px 0 12px; font-weight:800;"><i class="fa-solid fa-stethoscope"></i> ${headingText}</h3>`;
+                    }
+                } else {
+                    if (inList) {
+                        html += `<p style="margin-top:6px;">${trimmed}</p></div>`;
+                        inList = false;
+                    } else {
+                        html += `<p style="margin-bottom:14px; font-size:0.95rem; line-height:1.65; color:var(--ink-soft);">${trimmed}</p>`;
+                    }
+                }
+            });
+
+            if (inList) html += `</div>`;
+
+            html += `
+                <div class="blog-cta-box">
+                    <h3><i class="fa-solid fa-user-doctor"></i> Schedule Consultation with Dr. Swati Gawai</h3>
+                    <p>Experiencing any of these symptoms or need expert gynecological guidance in Mumbai? Book a 10-minute OPD consultation slot at Ameeta Nursing Home, Chembur.</p>
+                    <a href="booking.html" class="btn btn-primary" style="padding:10px 24px;"><i class="fa-solid fa-calendar-check"></i> Book OPD Appointment Now</a>
+                </div>
+            `;
+
+            return html;
+        }
+
+        // Per-Article Dynamic SEO & Blog View Analytics Tracker
+        function updatePerArticleSEO(article, slug) {
+            const fullUrl = `https://drswatigawai.in/blog#${slug}`;
+            const articleTitle = `${article.title} | Dr. Swati Gawai Gynecologist Mumbai`;
+            const articleDesc = article.snippet || article.title;
+            const articleImage = article.image_url || 'https://drswatigawai.in/images/profie%201.jpg';
+
+            document.title = articleTitle;
+            document.getElementById('dynamicBlogPageTitle').textContent = articleTitle;
+            document.getElementById('dynamicBlogMetaDesc').setAttribute('content', articleDesc);
+            document.getElementById('dynamicBlogMetaKeywords').setAttribute('content', `${article.title}, ${article.category}, Gynecologist Chembur, Dr Swati Gawai Blog, Women's Health Mumbai`);
+            document.getElementById('dynamicBlogCanonical').setAttribute('href', fullUrl);
+
+            document.getElementById('ogBlogTitle').setAttribute('content', articleTitle);
+            document.getElementById('ogBlogDesc').setAttribute('content', articleDesc);
+            document.getElementById('ogBlogUrl').setAttribute('content', fullUrl);
+            document.getElementById('ogBlogImage').setAttribute('content', articleImage);
+
+            document.getElementById('twBlogTitle').setAttribute('content', articleTitle);
+            document.getElementById('twBlogDesc').setAttribute('content', articleDesc);
+            document.getElementById('twBlogImage').setAttribute('content', articleImage);
+
+            // Inject Dynamic JSON-LD BlogPosting Schema for Search Crawlers
+            const schemaScript = document.getElementById('dynamicBlogSchema');
+            if (schemaScript) {
+                const schemaObj = {
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": fullUrl
+                    },
+                    "headline": article.title,
+                    "description": articleDesc,
+                    "image": articleImage,
+                    "author": {
+                        "@type": "Person",
+                        "name": article.author || "Dr. Swati Gawai",
+                        "jobTitle": "Obstetrician & Gynecologist",
+                        "worksFor": {
+                            "@type": "MedicalClinic",
+                            "name": "Ameeta Nursing Home Chembur"
+                        }
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Dr. Swati Gawai Healthcare",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://drswatigawai.in/images/logo.jpg"
+                        }
+                    },
+                    "datePublished": article.published_at || new Date().toISOString()
+                };
+                schemaScript.textContent = JSON.stringify(schemaObj);
+            }
+
+            location.hash = slug;
+        }
+
+        function openBlogModal(key) {
+            const article = allArticles.find(a => 
+                String(a.id) === String(key) || 
+                a.title === key || 
+                a.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === key
+            );
+            if (!article) return;
+
+            const slug = article.id || article.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            
+            // Track Blog View Count Analytics
+            article.views_count = (article.views_count || 1) + 1;
+            Store.set(`blog_views::${slug}`, article.views_count);
+
+            if (window.db) {
+                try {
+                    window.db.from('blogs').update({ views_count: article.views_count }).eq('id', article.id);
+                } catch(e) {}
+            }
+
+            // Update Per-Article Individual SEO Tags
+            updatePerArticleSEO(article, slug);
+
+            const contentEl = document.getElementById('blogReaderContent');
+            if (contentEl) {
+                const formattedBody = formatBlogContentToRichHTML(article.content);
+
+                contentEl.innerHTML = `
+                    <div style="border-bottom:2px solid var(--yellow-soft); padding-bottom:14px; margin-bottom:18px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="blog-meta-category" style="font-size:0.8rem; background:var(--yellow-soft); padding:4px 12px; border-radius:99px;">${article.category || 'Gynecology'}</span>
+                        </div>
+                        <h2 style="font-size:1.75rem; color:var(--ink-dark); margin:10px 0 6px; font-family:var(--font-heading); font-weight:800; line-height:1.25;">${article.title}</h2>
+                        <div style="font-size:0.85rem; color:var(--orange-primary); font-weight:700;">
+                            ✍️ ${article.author || 'Dr. Swati Gawai'} • 📅 Published on ${new Date(article.published_at || Date.now()).toLocaleDateString('en-IN')}
+                        </div>
+                    </div>
+
+                    <img src="${article.image_url || 'images/consulting.webp'}" style="width:100%; max-height:300px; object-fit:cover; border-radius:var(--radius-md); margin-bottom:20px; border:1px solid var(--light-border);" onerror="this.src='images/consulting.webp';">
+
+                    <div>
+                        ${formattedBody}
+                    </div>
+                `;
+            }
+            
+            document.getElementById('blogReaderModal').classList.add('modal-active');
+            renderBlogs(allArticles);
+        }
+
+        document.getElementById('closeBlogModal')?.addEventListener('click', () => {
+            document.getElementById('blogReaderModal').classList.remove('modal-active');
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+        });
+
+        document.getElementById('blogSearchInput')?.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allArticles.filter(a => 
+                a.title.toLowerCase().includes(query) || 
+                (a.snippet && a.snippet.toLowerCase().includes(query)) ||
+                (a.category && a.category.toLowerCase().includes(query))
+            );
+            renderBlogs(filtered);
+        });
+
+        document.querySelectorAll('.chip-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.chip-btn').forEach(c => {
+                    c.classList.remove('btn-primary', 'active');
+                    c.classList.add('btn-secondary');
+                });
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-primary', 'active');
+
+                const cat = btn.dataset.cat;
+                if (cat === 'all') renderBlogs(allArticles);
+                else renderBlogs(allArticles.filter(a => a.category && a.category.toLowerCase().includes(cat.toLowerCase())));
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', fetchBlogs);
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
